@@ -10,6 +10,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.DataProvider;
 
 import com.qc.pom.utils.TestUtils;
 
@@ -32,6 +33,16 @@ public class BaseIntegration {
 		driver.manage().window().maximize();
 		driver.get(prop.getProperty("siteUrl"));
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+	}
+	
+	@DataProvider
+	public Object[][] loginData() throws IOException{
+		return test.testData("Sheet1");
+	}
+	
+	@DataProvider
+	public Object[][] registerData() throws IOException{
+		return test.testData("Sheet2");
 	}
 	
 	@AfterSuite

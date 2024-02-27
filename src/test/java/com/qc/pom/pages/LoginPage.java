@@ -23,16 +23,31 @@ public class LoginPage {
 	@FindBy(id = "submit")
 	WebElement submitBtn;
 	
+	@FindBy(linkText = "Register a new membership")
+	WebElement regLink;
+	
 	public void enterEmail(String uName) {
+		email.clear();
 		email.sendKeys(uName);
 	}
 	
 	public void enterPass(String uPass) {
+		pass.clear();
 		pass.sendKeys(uPass);
 	}
 	
 	public void clickOnSubmit() {
 		submitBtn.click();
+	}
+	
+	public void clickOnRegstrationLink() {
+		regLink.click();
+	}
+	
+	public boolean verifyLoginPage() {
+		String actResult = driver.getTitle();
+		String expResult = "Queue Codes | Log in";
+		return actResult.equals(expResult);
 	}
 		
 	public HomePage loginWithValid(String uName, String uPass) {
@@ -40,5 +55,11 @@ public class LoginPage {
 		enterPass(uPass);
 		clickOnSubmit();
 		return new HomePage(driver);
+	}
+	
+	public void loginWithInValid(String uName, String uPass) {
+		enterEmail(uName);
+		enterPass(uPass);
+		clickOnSubmit();
 	}
 }
